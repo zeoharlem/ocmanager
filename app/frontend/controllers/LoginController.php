@@ -44,10 +44,8 @@ class LoginController extends BaseController{
     }
     
     public function logoutAction(){
-        $this->session->remove('auth');
-        $this->session->remove('cart_item');
         $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_NO_RENDER);
-        $this->response->redirect('checkout/process?token=' . uniqid());
+        $this->response->redirect('index/?logout=' . uniqid());
     }
     
     private function __registerSession(Register $register){

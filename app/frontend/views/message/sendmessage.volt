@@ -1,10 +1,9 @@
 {% extends "templates/base.volt" %}
 
 {% block head %}
+
 {% endblock %}
 {% block content %}
-
-
-
-{{this.getContent()}}
+<div class="content">
+    send message
 {% endblock %}

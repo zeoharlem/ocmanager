@@ -28,21 +28,7 @@ class IndexController extends BaseController{
     }
     
     public function indexAction(){
-        $category   = Category::find()->toArray();
-        $available  = Products::find(array(
-            'category'=>2,'limit'=>8,'order' => 'RAND()'))->toArray();
-        $this->view->setVars(array(
-            'category'      => $category,
-            'available'     => $available,
-            'helper'        => $this->component->helper,
-            'products'      => Products::find(array('limit'=>8,
-                'order' => 'RAND()'))->toArray(),
-            'package'       => Products::find(array(
-                'sub_category_id'=>1,'limit'=>3,'order' => 'RAND()')),
-            'singles'       => Products::find(array(
-                'sub_category_id'=>3,'order' => 'RAND()'))->getFirst()
-        ));
-        $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_LAYOUT);
+        $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
         return;
     }
     
