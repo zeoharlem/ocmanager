@@ -1512,7 +1512,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child:before {
   box-shadow: 0 0 3px #444;
   box-sizing: content-box;
   text-align: center;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Ubuntu', sans-serif;
   line-height: 18px;
   content: '+';
   background-color: #FFF;
@@ -1562,7 +1562,7 @@ table.dataTable.dtr-column > tbody > tr > th.control:before {
   box-shadow: 0 0 3px #444;
   box-sizing: content-box;
   text-align: center;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Ubuntu', sans-serif;
   line-height: 14px;
   content: '+';
   background-color: #31b131;
@@ -2785,7 +2785,7 @@ be a descendant of the grid when it is being dragged.
   overflow: hidden;
   line-height: 8px;
   font-size: 11px;
-  font-family: monospace;
+  font-family: 'Ubuntu', sans-serif;
   text-align: center;
   cursor: s-resize;
 }
@@ -4507,7 +4507,7 @@ svg {
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, .navbar, .brand, a, .td-name, td {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Muli', "Helvetica", Arial, sans-serif;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
@@ -5657,7 +5657,7 @@ strong {
 body {
   color: #66615b;
   font-size: 14px;
-  font-family: 'Muli', Arial, sans-serif;
+  font-family: 'Ubuntu', sans-serif;
 }
 body .wrapper {
   min-height: 100vh;
@@ -9016,7 +9016,7 @@ input.textarea {
 }
 .tagsinput .tagsinput-remove-link:before {
   content: "\e646";
-  font-family: "themify";
+  font-family: 'Ubuntu', sans-serif;
   font-weight: bolder;
 }
 .tagsinput .tagsinput-add-container {
@@ -9042,7 +9042,7 @@ input.textarea {
 }
 .tagsinput .tagsinput-add:before {
   content: "\e61a";
-  font-family: "themify";
+  font-family: 'Ubuntu', sans-serif;
   font-weight: bolder;
 }
 .tagsinput input {

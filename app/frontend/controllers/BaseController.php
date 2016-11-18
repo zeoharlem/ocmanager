@@ -54,6 +54,7 @@ class BaseController extends Controller{
                 ->addJs('assets/js/sweetalert2.js')
                 ->addJs('assets/js/jquery.bootstrap.wizard.min.js')
                 ->addJs('assets/js/bootstrap-table.js')
+                ->addJs('assets/js/jquery.datatables.js')
                 ->addJs('assets/js/fullcalendar.min.js')
                 ->addJs('assets/js/app.js');
     }

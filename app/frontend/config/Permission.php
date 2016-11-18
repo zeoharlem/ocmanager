@@ -33,7 +33,7 @@ class Permission extends \Phalcon\Mvc\User\Plugin{
         'registration'  => ['*'],
         'logout'    => ['*'],
         'error'     => ['*'],
-        'order'     => ['test']
+        'message'   => ['*']
     );
     
     protected $_userResources = array(
@@ -68,7 +68,7 @@ class Permission extends \Phalcon\Mvc\User\Plugin{
             $this->session->remove('auth');
             $this->flash->error('Not allowed | <strong>Sign In</strong>');
             $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_NO_RENDER);
-            $this->response->redirect('checkout/process?task=permission_decline');
+            $this->response->redirect('index?task=logout&r='.uniqid());
             //Stops the Dispatcher at the current operation
             return false;
         }
