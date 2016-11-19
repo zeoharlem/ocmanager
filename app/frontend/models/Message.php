@@ -15,11 +15,17 @@ namespace Multiple\Frontend\Models;
  */
 class Message extends BaseModel{
     //put your code here
+    public $category;
+    
     public function initialize(){
-        
+        $this->useDynamicUpdate(true);
+        $this->belongsTo('category_id', 
+                'Multiple\\Frontend\\Models\\Category', 
+                'category_id',array('reusable' => true, 'foreignKey' => true, 'alias' => 'Msgcat'));
     }
     
     public function beforeValidationOnCreate(){
-        $this->date_reg = new \Phalcon\Db\RawValue('NOW()');
+        $this->date_reg     = new \Phalcon\Db\RawValue('NOW()');
+        $this->register_id  = $this->getDI()->getSession()->get('auth')['register_id'];
     }
 }

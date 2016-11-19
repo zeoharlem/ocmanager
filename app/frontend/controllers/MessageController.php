@@ -19,11 +19,13 @@ class MessageController extends BaseController{
     public function initialize() {
         parent::initialize();
         \Phalcon\Tag::appendTitle('Send Message');
+        $this->view->category   = \Multiple\Frontend\Models\Category::find();
     }
     
     public function indexAction(){
-        $message    = \Multiple\Frontend\Models\Message::find('register_id='.
-                        $this->session->get('auth')['register_id'])->toArray();
+        $message    = \Multiple\Frontend\Models\Message::find(
+                'register_id='.$this->session->get('auth')['register_id']);
+        $this->view->messages               = $message ? $message : array();
         $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
         return;
     }
@@ -37,9 +39,8 @@ class MessageController extends BaseController{
                 $this->response->redirect('message/sendmessage?task=true');
             }
             else{
-                $this->flash->error('Unable to send message to the service');
+                $this->component->helper->getErrorMsgs($message,'message/sendmessage');
                 $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_NO_RENDER);
-                $this->response->redirect('message/sendmessage?task=false');
             }
         }
         $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
