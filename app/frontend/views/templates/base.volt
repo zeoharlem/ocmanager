@@ -148,7 +148,7 @@
 </div>
                 </div>
 	        </div>
-
+</div>
 
 
 {{ this.assets.outputJs('footers') }}
@@ -163,9 +163,7 @@
 		                '<a rel="tooltip" title="View" class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">',
 							'<i class="fa fa-envelope"></i>',
 						'</a>',
-		                '<a rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon table-action edit" href="javascript:void(0)">',
-		                    '<i class="fa fa-edit"></i>',
-		                '</a>',
+		                
 		                '<a rel="tooltip" title="Remove" class="btn btn-simple btn-danger btn-icon table-action remove" href="javascript:void(0)">',
 		                    '<i class="fa fa-close"></i>',
 		                '</a>',

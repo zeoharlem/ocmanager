@@ -14,10 +14,11 @@
 	                                    <thead>
 	                                        <th data-field="state" data-checkbox="true"></th>
 	                                        <th data-field="id" class="text-center">ID</th>
-	                                    	<th data-field="name" data-sortable="true">Name</th>
-	                                    	<th data-field="salary" data-sortable="true">Salary</th>
-	                                    	<th data-field="country" data-sortable="true">Country</th>
+	                                    	<th data-field="name" data-sortable="true">Title</th>
+	                                    	<th data-field="salary" data-sortable="true">Category</th>
+	                                    	<th data-field="country" data-sortable="true">Date Sent</th>
 	                                    	<th data-field="city">City</th>
+	                                    	<th data-field="status">Status</th>
 	                                    	<th data-field="actions" class="td-actions text-right" data-events="operateEvents" data-formatter="operateFormatter">Actions</th>
 	                                    </thead>
 	                                    <tbody>
@@ -29,6 +30,7 @@
 	                                        	<td>{{values.getMsgcat().category_name | upper}}</td>
 	                                        	<td>{{values.date_reg}}</td>
 	                                        	<td>{{values.city}}</td>
+	                                        	<td>{{values.status}}</td>
 	                                        	<td></td>
 	                                        </tr>
 	                                    {% endfor %}    

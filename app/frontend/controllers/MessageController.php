@@ -46,4 +46,19 @@ class MessageController extends BaseController{
         $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
         return;
     }
+    
+    public function viewNotifyAction(){
+        $typeResp   = new \Phalcon\Http\Response();
+        if($this->request->isPost() && $this->request->isAjax()){
+            $id         = $this->request->getPost('id');
+            $messages   = \Multiple\Frontend\Models\Message::findFirstByMessage_id($id);
+            if($messages != false){
+                $typeResp->setHeader('Content-Type', 'application/json');
+                $typeResp->setJsonContent(array('status' => 'OK', 'data' => $messages));
+                $typeResp->send(); exit();
+            }
+        }
+        $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_NO_RENDER);
+        return;
+    }
 }

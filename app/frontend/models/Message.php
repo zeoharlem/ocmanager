@@ -27,5 +27,6 @@ class Message extends BaseModel{
     public function beforeValidationOnCreate(){
         $this->date_reg     = new \Phalcon\Db\RawValue('NOW()');
         $this->register_id  = $this->getDI()->getSession()->get('auth')['register_id'];
+        $this->status       = "pending";
     }
 }

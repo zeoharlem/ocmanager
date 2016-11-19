@@ -143,12 +143,12 @@ a:5:{i:0;s:650:"
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-";s:7:"content";N;i:2;s:3150:"
+";s:7:"content";N;i:2;s:2957:"
 
 </div>
                 </div>
 	        </div>
-
+</div>
 
 
 <?= $this->assets->outputJs('footers') ?>
@@ -163,9 +163,7 @@ a:5:{i:0;s:650:"
 		                '<a rel="tooltip" title="View" class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">',
 							'<i class="fa fa-envelope"></i>',
 						'</a>',
-		                '<a rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon table-action edit" href="javascript:void(0)">',
-		                    '<i class="fa fa-edit"></i>',
-		                '</a>',
+		                
 		                '<a rel="tooltip" title="Remove" class="btn btn-simple btn-danger btn-icon table-action remove" href="javascript:void(0)">',
 		                    '<i class="fa fa-close"></i>',
 		                '</a>',
