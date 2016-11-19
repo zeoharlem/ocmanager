@@ -33,7 +33,7 @@ class Permission extends \Phalcon\Mvc\User\Plugin{
         'registration'  => ['*'],
         'logout'    => ['*'],
         'error'     => ['*'],
-        'message'   => ['*']
+        
     );
     
     protected $_userResources = array(
@@ -41,7 +41,8 @@ class Permission extends \Phalcon\Mvc\User\Plugin{
         'order'         => ['*'],
         'agents'        => ['*'],
         'password'      => ['*'],
-        'customer'      => ['*']
+        'customer'      => ['*'],
+        'message'       => ['*']
     );
     
     protected $_adminResources = array(
