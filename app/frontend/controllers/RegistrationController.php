@@ -28,10 +28,10 @@ class RegistrationController extends BaseController{
             if($register->create($this->request->getPost())){
                 $this->flash->success('Registration Done Successfully');
                 $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_NO_RENDER);
-                $this->response->redirect('checkout/process?token='.  uniqid());
+                $this->response->redirect('register/?token='.  uniqid());
             }
             else{
-                $this->component->helper->getErrorMsgs($register,'checkout/process?error');
+                $this->component->helper->getErrorMsgs($register,'register/?error=true');
                 $this->flash->error('Unable to register user');
             }
         }

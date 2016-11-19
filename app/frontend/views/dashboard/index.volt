@@ -4,8 +4,8 @@
 <div class="col-md-12">
 	                        <div class="card">
 	                            <div class="header">
-	                                <h4 class="title">Tabs</h4>
-	                                <p class="category">Plain text tabs</p>
+	                                <h4 class="title">Dashboard <strong>{{session.get('auth')['fullname'] | upper}}</strong></h4>
+	                                <p class="category">Your Online Complain System</p>
 	                            </div>
 	                            <div class="content">
 	                                <div class="nav-tabs-navigation">

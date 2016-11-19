@@ -143,7 +143,7 @@ a:5:{i:0;s:650:"
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-";s:7:"content";N;i:2;s:2957:"
+";s:7:"content";N;i:2;s:3717:"
 
 </div>
                 </div>
@@ -176,14 +176,25 @@ a:5:{i:0;s:650:"
 	                'click .view': function (e, value, row, index) {
 	                    info = JSON.stringify(row);
 
-	                    swal('You click view icon, row: ', info);
-	                    console.log(info);
+	                    /**swal('You click view icon, row: ', info);
+	                    console.log(info);**/
+                            //alert(info);
+                            $.post('http://localhost/ocmanager/message/viewNotify',{id:row.id}, function(data){
+                                var stringJson  = $.parseJSON(JSON.stringify(data));
+                                if(stringJson.status == 'OK'){
+                                    swal(row.name, stringJson.data.description)
+                                }
+                            });
 	                },
 	                'click .edit': function (e, value, row, index) {
 	                    info = JSON.stringify(row);
 
-	                    swal('You click edit icon, row: ', info);
-	                    console.log(info);
+	                    $.post('http://localhost/ocmanager/message/viewNotify',{id:info.id}, function(data){
+                                var stringJson  = $.parseJSON(JSON.stringify(data));
+                                if(stringJson.status == 'OK'){
+                                    swal('Your Message: ', stringJson.data.description)
+                                }
+                            });
 	                },
 	                'click .remove': function (e, value, row, index) {
 	                    console.log(row);
