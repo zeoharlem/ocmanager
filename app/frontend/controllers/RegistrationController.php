@@ -35,7 +35,7 @@ class RegistrationController extends BaseController{
                 $this->flash->error('Unable to register user');
             }
         }
-        $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_NO_RENDER);
+        $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_LAYOUT);
         return;
     }
 }

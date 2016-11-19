@@ -34,7 +34,7 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                       <a href="{{url('register')}}">
+                       <a href="{{url('registration/')}}">
                             Register
                         </a>
                     </li>
