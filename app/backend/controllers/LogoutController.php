@@ -18,7 +18,7 @@ class LogoutController extends BaseController{
     //put your code here
     public function indexAction(){
         //var_dump($this->session->get('auth')); exit;
-        if($this->session->get('auth')['active'] == 1){
+        if($this->session->has('auth')){
             $this->__LogOutNow();
             $this->response->redirect('index?task=logout');
         }

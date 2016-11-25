@@ -13,7 +13,8 @@
  */
 namespace Multiple\Backend\Models;
 
-use Phalcon\Validation\Validator;
+use Phalcon\Mvc\Model\Validator;
+use Phalcon\Paginator\Adapter\QueryBuilder as PaginatorQueryBuilder;
 
 class Products extends BaseModel{
     //put your code here
@@ -23,12 +24,6 @@ class Products extends BaseModel{
                 "Categories", 
                 "product_id",
                 array('reusable' => true));
-        $this->allowEmptyStringValues(array('brand','category'));
-        //$this->skipAttributesOnCreate(array('category'));
-    }
-    
-    public function beforeValidationOnCreate(){
-        $this->add_timestamp    = new \Phalcon\Db\RawValue('now()');
     }
     
     /**
@@ -39,7 +34,8 @@ class Products extends BaseModel{
     public static function __convert($string, $key=''){
         $product        = new Products();
         $strJsonDecode  = json_decode($string);
-        $sqlStatement   = "SELECT * FROM vendor WHERE vendor_id=".$strJsonDecode->id;
+        $sqlStatement   = "SELECT * FROM vendor "
+                                        . "WHERE vendor_id=".$strJsonDecode->id;
         $result         = $product->getReadConnection()->query($sqlStatement);
                           $result->setFetchMode(\Phalcon\Db::FETCH_ASSOC);
         return empty($key) ? $result->fetch() : $result->fetch()[$key];
@@ -47,7 +43,7 @@ class Products extends BaseModel{
     
     //A fix for the namespacing attributes
     public function getCategories(){
-        return $this->getRelated('Multiple\Frontend\Models\Categories');
+        return $this->getRelated('Multiple\Backend\Models\Categories');
     }
     
     /**
@@ -71,38 +67,39 @@ class Products extends BaseModel{
         $stackProduct   = Products::__convert($string, $key);
         return $stackProduct;
     }
-//    
-//    public function validation(){
-//        $this->validate(new Validator\Uniqueness(array(
-//            'field'     => 'product_desc',
-//            'message'   => 'Category already existed'
-//        )));
-//        
-//        $this->validate(new Validator\StringLength(array(
-//            "field"             => 'product_desc',
-//            'max'               => 150,
-//            'min'               => 2,
-//            'messageMaximum'    => 'Do not make the too long string',
-//            'messageMinimum'    => 'The category string is too small'
-//        )));
-//        if($this->validationHasFailed() == true){
-//            return false;
-//        }
-//    }
-//    
+
+    public static function getList($params){
+        //Query default values
+        $sort = $params['sort'] ?: 'r.title';
+        $order = $params['order'] ?: 'ASC';
+        $page   = (int) $params['page'] ?: 1;
+        $limit  = $params['limit'] ?: 4;
+        
+        //Create the builder paging query
+        $builder    = \Phalcon\Di::getDefault()
+                ->getModelsManager()->createBuilder()
+                ->from(array('r' => 'Multiple\Backend\Models\Products'))
+                ->where('r.category = '.$params['cat'])->orderBy("$sort $order");
+        $paginator  = new PaginatorQueryBuilder(array(
+            'builder' => $builder, 'limit' => $limit, 'page' => $page));
+        return $paginator;
+    }
+
     public function validation(){
-        $validator  = new \Phalcon\Validation();
-        $validator->add('title', new Validator\Uniqueness(array(
-            'models'    => 'Products',
+        $this->validate(new Validator\Uniqueness(array(
+            'field'     => 'product_desc',
             'message'   => 'Category already existed'
         )));
-        $validator->add('title', new Validator\StringLength(array(
-            'models'            => 'Products',
+        
+        $this->validate(new Validator\StringLength(array(
+            "field"             => 'product_desc',
+            'max'               => 150,
             'min'               => 2,
-            'max'               => 50,
-            'messageMaximun'    => 'Do not make the too long string',
+            'messageMaximum'    => 'Do not make the too long string',
             'messageMinimum'    => 'The category string is too small'
         )));
-        return $this->validate($validator);
+        if($this->validationHasFailed() == true){
+            return false;
+        }
     }
 }

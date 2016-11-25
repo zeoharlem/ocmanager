@@ -14,6 +14,15 @@
 namespace Multiple\Backend\Component;
 
 class Helper extends \Phalcon\Mvc\User\Component{
+    const ACESS_TOKEN = 'df6bb34d1342938032946e88cce350dcce17d58c2267a0c74474b933be45823a';
+    
+    public function getAgents(){
+        $jsonString = "{\"api_key\": \"".self::ACESS_TOKEN."\"}";
+        $respo  = $this->__curlRequestTask(
+                'https://api.tookanapp.com/v2/get_available_agents', $jsonString);
+        return $respo;
+    }
+    
     //put your code here
     public function csrf($redirect = false){
         if($this->security->checkToken() == false){
@@ -101,5 +110,32 @@ class Helper extends \Phalcon\Mvc\User\Component{
     
     private function short($words, $limit){
         return substr($words, 0, strrpos(substr($words, 0, $limit), ' ')).' ..';
+    }
+    
+    /**
+     * 
+     * @param type $url
+     * @param string $token
+     * @param string $jsonString
+     * @return string
+     */
+    private function __curlRequestTask($url, $jsonString){
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_HEADER, FALSE);
+
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonString);
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+          "Content-Type: application/json"
+        ));
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return $response;
     }
 }

@@ -13,16 +13,23 @@
  */
 namespace Multiple\Backend\Controllers;
 
+use Multiple\Backend\Models\Vendor,
+    Multiple\Backend\Models\Category,
+    Multiple\Backend\Models\Products;
+
+use Multiple\Backend\Models\Admin;
+
 class IndexController extends BaseController{
     //put your code here
     public function initialize() {
         parent::initialize();
-        \Phalcon\Tag::appendTitle('Administrator');
+        \Phalcon\Tag::appendTitle('Welcome');
+        $this->view->setVar('agents', $this->__getAgents(10));
     }
     
     public function indexAction(){
-        $this->assets->collection('headers')->addJs('admin/css/pages/login.css');
-        $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_MAIN_LAYOUT);
+        $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
+        return;
     }
     
     public function show404(){
@@ -31,5 +38,11 @@ class IndexController extends BaseController{
     
     public function show409(){
         
+    }
+    
+    private function __getAgents($limit=''){
+        return !empty($limit) ? Admin::find(array(
+            'limit' => $limit, 'order' => 'RAND()'))->toArray() : 
+            Admin::find(array('order' => 'RAND()'))->toArray();
     }
 }

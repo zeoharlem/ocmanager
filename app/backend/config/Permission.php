@@ -25,21 +25,24 @@ class Permission extends \Phalcon\Mvc\User\Plugin{
     
     protected $_publicResources = array(
         'index'     => ['*'],
-        'signin'    => ['*'],
-        'request'   => ['*'],
-        'session'   => ['*'],
+        'stores'    => ['*'],
+        'login'     => ['*'],
+        'checkout'  => ['*'],
+        'product'   => ['*'],
+        'category'  => ['*'],
+        'registration'  => ['*'],
         'logout'    => ['*'],
-        'lock'      => ['*'],
+        'error'     => ['*'],
+        
     );
     
     protected $_userResources = array(
         'dashboard'     => ['*'],
-        'registration'  => ['*'],
-        'members'       => ['*'],
-        'customer'      => ['*'],
-        'products'      => ['*'],
         'order'         => ['*'],
-        'vendor'        => ['*']
+        'agents'        => ['*'],
+        'password'      => ['*'],
+        'customer'      => ['*'],
+        'message'       => ['*']
     );
     
     protected $_adminResources = array(
@@ -66,7 +69,7 @@ class Permission extends \Phalcon\Mvc\User\Plugin{
             $this->session->remove('auth');
             $this->flash->error('Not allowed | <strong>Sign In</strong>');
             $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_NO_RENDER);
-            $this->response->redirect('index/');
+            //$this->response->redirect('index?task=logout&r='.uniqid());
             //Stops the Dispatcher at the current operation
             return false;
         }

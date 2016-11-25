@@ -38,11 +38,17 @@ class Admin extends BaseModel{
         }
     }
     
+    public function beforeValidationOnCreate(){
+        
+    }
+    
     public function validation(){
         $this->validate(new Validator\Uniqueness(array(
             "fields"    => "username",
             "message"   => "Email Already Existed"
         )));
+        
+        $security   = new \Phalcon\Security();
         
         if($this->validationHasFailed()){
             return false;

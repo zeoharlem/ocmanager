@@ -6,17 +6,13 @@
  * and open the template in the editor.
  */
 
+namespace Multiple\Backend\Controllers;
+
 /**
- * Description of Sales
+ * Description of ContactsController
  *
  * @author Theophilus Alamu <theophilus.alamu at gmail.com>
  */
-namespace Multiple\Backend\Models;
-
-class Sales extends BaseModel{
+class ContactsController extends BaseController{
     //put your code here
-    public function initialize(){
-        $this->allowEmptyStringValues(array(
-            'company','additional_info','agent','delivery_time'));
-    }
 }

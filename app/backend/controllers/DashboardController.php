@@ -22,6 +22,38 @@ class DashboardController extends BaseController{
     }
     
     public function indexAction(){
+        $this->view->setVars(array(
+            'cart_item' => $this->session->get('cart_item'),
+            'trans_id'  => $this->component->helper->makeRandomInts(10)));
+        $this->view->setVar('grandTotal',           $this->__getItemTotal());
         $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_AFTER_TEMPLATE);
+        return;
+    }
+    
+    public function taskHalfAction(){
+        $this->view->setVar('query', $this->request->getQuery());
+        $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_AFTER_TEMPLATE);
+        return;
+    }
+    
+    public function taskFullAction(){
+        $this->session->remove('cart_item');
+        $this->view->setVar('query', $this->request->getQuery());
+        $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_AFTER_TEMPLATE);
+        return;
+    }
+    
+    private function __getItemTotal(){
+        $totalAmount    = []; $counter  = 0;
+        foreach($this->session->get('cart_item') as $keys=>$values){
+            foreach($values as $index => $elements){
+                if($index == 'price'){
+                    $q  = $values['qty'];
+                    $totalAmount[]  = $elements * $q;
+                }
+            }
+        }
+        return (array_sum($totalAmount));
+        exit();
     }
 }

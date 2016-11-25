@@ -14,6 +14,7 @@
  * It's just used to monitor methods written by the theophilus for brevity
  * most times the __ are mostly private assessors
  */
+
 namespace Multiple\Backend\Models;
 
 class BaseModel extends \Phalcon\Mvc\Model{

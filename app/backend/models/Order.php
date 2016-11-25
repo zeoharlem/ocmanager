@@ -14,16 +14,9 @@
 namespace Multiple\Backend\Models;
 
 class Order extends BaseModel{
-    //put your code here
+    
     public function initialize(){
         $this->allowEmptyStringValues(array(
-            'additional_info',
-            'postzip','state',
-            'city','company'));
-        $this->skipAttributesOnCreate(array(
-            'additional_info',
-            'postzip','state','city','company'));
-        
-        $this->date_of_order    = new \Phalcon\Db\RawValue('now()');
+            'company','additional_info'));
     }
 }

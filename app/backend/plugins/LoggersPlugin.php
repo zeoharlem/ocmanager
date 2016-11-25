@@ -11,7 +11,6 @@
  *
  * @author Theophilus Alamu <theophilus.alamu at gmail.com>
  */
-//namespace FileLogger;
 namespace Multiple\Backend\Plugins;
 
 use Phalcon\Logger;
@@ -24,7 +23,7 @@ class LoggersPlugin extends Plugin{
     private $_logger;
     private static $_instance;
     private function __construct(){
-        $this->_logger  = new FileAdapter("../app/backend/logs/test.log");
+        $this->_logger  = new FileAdapter("../app/frontend/logs/test.log");
         //$formatter  = new LineFormater("%date% - %message%");
     }
     
@@ -37,7 +36,7 @@ class LoggersPlugin extends Plugin{
     }
     
     public function setLogFile($file){
-        $this->_logger  = new FileAdapter("../app/backend/logs/".$file.".log");
+        $this->_logger  = new FileAdapter("../app/logs/".$file.".log");
         //$formatter  = new LineFormater("%date% - %message%");
     }
     

@@ -15,4 +15,5 @@ namespace Multiple\Backend\Models;
 
 class Vendor extends BaseModel{
     //put your code here
+    
 }

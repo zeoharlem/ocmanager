@@ -13,69 +13,57 @@
  */
 namespace Multiple\Backend\Controllers;
 
-class BaseController extends \Phalcon\Mvc\Controller{
+use Phalcon\Mvc\Controller;
+class BaseController extends Controller{
     //put your code here
     public function initialize(){
-        \Phalcon\Tag::prependTitle('Sales Application');
+        \Phalcon\Tag::prependTitle('Online Complain');
         \Phalcon\Tag::setTitleSeparator(' | ');
         $this->assets->collection('headers')
-                ->addCss('admin/css/bootstrap.min.css')
-                ->addCss('admin/css/bootstrap-extend.min.css')
-                ->addCss('admin/css/site.min.css')
-                ->addCss('admin/vendor/animsition/animsition.css')
-                ->addCss('admin/vendor/asscrollable/asScrollable.css')
-                ->addCss('admin/vendor/switchery/switchery.css')
-                ->addCss('admin/vendor/intro-js/introjs.css')
-                ->addCss('admin/vendor/slidepanel/slidePanel.css')
-                ->addCss('admin/vendor/flag-icon-css/flag-icon.css')
-                ->addCss('admin/vendor/select2/select2.css')
-                ->addCss('admin/vendor/bootstrap-tokenfield/bootstrap-tokenfield.css')
-                ->addCss('admin/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css')
-                ->addCss('admin/vendor/bootstrap-select/bootstrap-select.css')
-                ->addCss('admin/fonts/web-icons/web-icons.min.css')
-                ->addCss('admin/fonts/brand-icons/brand-icons.min.css')
-                ->addCss('http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic', true);
+                ->addCss('assets/css/bootstrap.min.css')
+                ->addCss('assets/css/paper-dashboard.css')
+                ->addCss('assets/css/demo.css')
+                ->addCss('assets/css/font-awesome.min.css')
+                ->addCss('assets/css/themify-icons.css');
         
+        $this->view->setVar('url', $this->__locateString());
+        $this->view->setVar('category', \Multiple\Backend\Models\Category::find()->toArray());
+        //$this->view->setVar('taskAgents', json_decode($this->component->helper->getAgents()));
+        $this->view->setVar('taskAgents', \Multiple\Backend\Models\Admin::find());
+        //$agents = json_decode($this->component->helper->getAgents());
+        //var_dump($agents->data.fleet_image); exit;
         //Create | add the javascript script link
         $this->assets->collection('jsHeaders')
-                ->addJs('admin/vendor/modernizr/modernizr.js')
-                ->addJs('admin/vendor/breakpoints/breakpoints.js');
+                ->addJs('assets/vendor/modernizr/modernizr.js')
+                ->addJs('assets/vendor/breakpoints/breakpoints.js');
         
+     
         //Create | add the javascript script link
         $this->assets->collection('footers')
-                ->addJs('admin/vendor/jquery/jquery.js')
-                ->addJs('admin/vendor/bootstrap/bootstrap.js')
-                ->addJs('admin/vendor/animsition/jquery.animsition.js')
-                ->addJs('admin/vendor/asscroll/jquery-asScroll.js')
-                ->addJs('admin/vendor/mousewheel/jquery.mousewheel.js')
-                ->addJs('admin/vendor/asscrollable/jquery.asScrollable.all.js')
-                ->addJs('admin/vendor/ashoverscroll/jquery-asHoverScroll.js')
-                ->addJs('admin/vendor/switchery/switchery.min.js')
-                ->addJs('admin/vendor/intro-js/intro.js')
-                ->addJs('admin/vendor/screenfull/screenfull.js')
-                ->addJs('admin/vendor/slidepanel/jquery-slidePanel.js')
-                ->addJs("admin/vendor/select2/select2.min.js")
-                ->addJs('admin/vendor/bootstrap-tokenfield/bootstrap-tokenfield.min.js')
-                ->addJs('admin/vendor/bootstrap-tagsinput/bootstrap-tagsinput.min.js')
-                ->addJs('admin/vendor/bootstrap-select/bootstrap-select.js')
-                ->addJs('admin/js/core.js')
-                ->addJs('admin/js/site.js')
-                ->addJs('admin/js/sections/menu.js')
-                ->addJs('admin/js/sections/menubar.js')
-                ->addJs('admin/js/sections/sidebar.js')
-                ->addJs('admin/js/configs/config-colors.js')
-                ->addJs('admin/js/configs/config-tour.js')
-                ->addJs('admin/js/components/asscrollable.js')
-                ->addJs('admin/js/components/animsition.js')
-                ->addJs('admin/js/components/slidepanel.js')
-                ->addJs('admin/js/components/switchery.js')
-                ->addJs('admin/js/app.js');
+                ->addJs('assets/js/jquery-1.10.2.js')
+                ->addJs('assets/js/jquery-ui.min.js')
+                ->addJs('assets/js/bootstrap.min.js')
+                ->addJs('assets/js/jquery.validate.min.js')
+                ->addJs('assets/js/moment.min.js')
+                ->addJs('assets/js/bootstrap-datetimepicker.js')
+                ->addJs('assets/js/bootstrap-selectpicker.js')
+                ->addJs('assets/js/bootstrap-checkbox-radio-switch-tags.js')
+                ->addJs('assets/js/jquery.easypiechart.min.js')
+                ->addJs('assets/js/chartist.min.js')
+                ->addJs('assets/js/bootstrap-notify.js')
+                ->addJs('assets/js/sweetalert2.js')
+                ->addJs('assets/js/jquery.bootstrap.wizard.min.js')
+                ->addJs('assets/js/bootstrap-table.js')
+                ->addJs('assets/js/jquery.datatables.js')
+                ->addJs('assets/js/fullcalendar.min.js')
+                ->addJs('assets/js/app.js');
     }
     
     public function __dataTableJsCss(){
-        $this->assets->collection('footers')
-                ->addJs('admin/js/datatables/jquery.dataTables.js')
-                ->addJs('admin/js/bootbox.js');
+        $this->assets->collection('headers')->addCss(
+                'assets/js/datatables/datatables.css');
+        $this->assets->collection('footers')->addJs(
+                'assets/js/datatables/jquery.dataTables.js');
     }
     
     protected function __crossOriginPolicy(){
@@ -106,6 +94,22 @@ class BaseController extends \Phalcon\Mvc\Controller{
         if($this->request->isAjax()){
             $dataTables = new \DataTables\DataTable();
             return $dataTables->fromArray($builder)->sendResponse();
+        }
+    }
+    
+    //This method should be used for associative array
+    /**
+     * @param type $array
+     * @return type array;
+     */
+    public function __buildRequest($array = array()){
+        if($this->request->isPost()){
+            $_POST   = $this->request->getPost() + $array;
+            return $getPost     = $this->request->getPost();
+        }
+        else{
+            $_GET   = $this->request->getQuery() + $array;
+            return $getQuery    = $this->request->getQuery();
         }
     }
     
@@ -188,27 +192,22 @@ class BaseController extends \Phalcon\Mvc\Controller{
     }
     
     /**
-     * @param type $url
-     * @param type $jsonString
-     * @return type
-     */
-    public function __curlRequestTask($url, $jsonString){
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($ch, CURLOPT_HEADER, FALSE);
-
-        curl_setopt($ch, CURLOPT_POST, TRUE);
-
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonString);
-
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-          "Content-Type: application/json"
-        ));
-
-        $response = curl_exec($ch);
-        curl_close($ch);
-        return $response;
+     * @return String
+    //if session has cart_item
+    */
+    public function __getSubTotal(){
+        $total  = array();
+        if($this->session->has('cart_item') || isset($_SESSION['cart_item'])){
+            foreach($this->session->get('cart_item') as $keys=>$values){
+                $total[]    =           $values['qty'] * $values['price'];
+            }
+        }
+        return array_sum($total);
+    }
+    
+    //This method is for this query construction
+    private function __locateString(){
+        return $this->session->has('strLocation') ? 
+                '?strLocation='.$this->session->get('strLocation'):'';
     }
 }
